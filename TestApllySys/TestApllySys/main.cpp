@@ -18,7 +18,7 @@ int main(void)
     cout << "请输入考生人数" << endl;
     int num;
     cin >> num;
-    cout << "请依次输入考生的考号，姓名，性别，年龄及报考类别！" << endl;
+    if (num != 0) cout << "请依次输入考生的考号，姓名，性别，年龄及报考类别！" << endl;
     while(num != 0){
         num--;
         system.newNode();

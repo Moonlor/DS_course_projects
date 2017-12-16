@@ -146,6 +146,7 @@ InformationNode * List::modify(void)
     target->changeAge(age);
     target->changeExamSubject(subject);
     
+    this->show();
     return target;
 }
 
