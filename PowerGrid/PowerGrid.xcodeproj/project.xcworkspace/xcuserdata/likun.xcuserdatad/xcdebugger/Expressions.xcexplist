@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "MST::generateMST():MST.h">
+         <PersistentStrings>
+            <PersistentString
+               value = "cost[2]">
+            </PersistentString>
+            <PersistentString
+               value = "cost[3]">
+            </PersistentString>
+            <PersistentString
+               value = "cost[0]">
+            </PersistentString>
+            <PersistentString
+               value = "cost[1]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
