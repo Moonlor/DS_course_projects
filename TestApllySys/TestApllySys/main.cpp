@@ -13,6 +13,7 @@ using namespace std;
 
 int main(void)
 {
+    cout << "首先请建立考生信息系统" << endl;
     List system;
     cout << "请输入考生人数" << endl;
     int num;
@@ -48,6 +49,11 @@ int main(void)
                 int id;
                 cin >> id;
                 InformationNode *target = system.findStudent(id);
+                if (target == nullptr) {
+                    cout << "该考生不存在！" << endl;
+                    continue;
+                }
+                cout << "你查找的考生信息为：";
                 system.printNode(target);
                 break;
             }

@@ -47,7 +47,7 @@ InformationNode * List::findStudent(int ex_id)
     InformationNode *current = _start;
     
     if(_start == _init){
-        cerr << "The list is empty !!!" << endl;
+        cerr << "系统为空 !!!" << endl;
         return nullptr;
     }
     
@@ -71,7 +71,7 @@ InformationNode * List::findStudent(int ex_id)
 InformationNode * List::insert(int position)
 {
     if(position > _totalNumber + 1){
-        cerr << "超出人数范围" << endl;
+        cerr << "插入位置不合法，请重新选择操作！" << endl;
         return nullptr;
     }
     
@@ -119,6 +119,7 @@ InformationNode * List::insert(int position)
     }
     
     _totalNumber++;
+    this->show();
     return temp;
 }
 
@@ -156,7 +157,7 @@ void List::show()
     }
     
     InformationNode * current = _start;
-    cout << "考号"<< '\t'<< "姓名" << '\t'<< "性别" << '\t' << "年龄" << '\t' << "报考类别" << endl;
+    cout << "考号"<< '\t'<< "姓名" << "\t\t"<< "性别" << '\t' << "年龄" << '\t' << "报考类别" << endl;
     
     while (current->next() != nullptr) {
         printNode(current);
@@ -216,9 +217,12 @@ void List::deleteNode(int ex_id)
     }else{
         current->changeNext(target->next());
     }
-    
+    cout << "你删除的考生信息是：";
+    printNode(target);
+    cout << endl;
     delete target;
-    -_totalNumber--;
+    _totalNumber--;
+    this->show();
 }
 
 
