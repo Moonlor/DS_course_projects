@@ -45,6 +45,7 @@ public:
         dissolve(_ancestor, 2);
     }
     
+    //查看每次为家谱成员分配内存空间是否成功
     bool checkOk(void* object){
         if (object == nullptr) {
             cerr << "内存分配出错" << endl;
@@ -53,6 +54,7 @@ public:
         return true;
     }
     
+    //根据名字查找某位家谱成员
     Node * find(string name, Node * current){
         Node *target = nullptr;
         if(current->_name == name){
@@ -69,6 +71,7 @@ public:
         return target;
     }
     
+    //打印某位家谱成员的所有子代
     void printChild(Node *parent){
         if (parent == nullptr) {
             return;
@@ -80,6 +83,7 @@ public:
         cout << endl;
     }
     
+    //解散某个家庭
     void dissolve(Node *parent, int mode){
         // mode1: 仅解散子女，mode2: 删除自己、子女
         Node *link = parent;
@@ -91,11 +95,10 @@ public:
         for (int i = 0; i < link->_offspring.size(); i++) {
             dissolve(link->_offspring.at(i), 2);
         }
-        if(mode != 1){
-            delete parent;
-        }
+        link->_offspring.clear();
     }
     
+    //添加新的家庭成员
     bool addNewMember(void){
         cout << "请输入要添加儿子（或）女儿的人的姓名：" << endl;
         string name;
@@ -116,6 +119,7 @@ public:
         return true;
     }
     
+    //建立新的家庭
     bool newFamily(void){
         cout << "请输入要建立家庭的人的姓名：" << endl;
         string name;
@@ -128,6 +132,7 @@ public:
         cout << "请输入" << parent->_name << "的儿女人数: " << endl;
         int number;
         cin >> number;
+        if(number <= 0) {cerr << "非法输入" << endl; return false;}
         cout << "请依次输入" << parent->_name <<"的儿女的姓名: " << endl;
         vector<string> name_list;
         for (int i = 0; i < number; i++) {
@@ -145,6 +150,7 @@ public:
         return true;
     }
     
+    //解散某个家庭
     void dissolveFamily(void){
         cout << "请输入要解散家庭的人的姓名：" ;
         string name;
@@ -158,6 +164,7 @@ public:
         dissolve(parent, 1);
     }
     
+    //更改某位家庭成员的姓名
     void changeName(void){
         cout << "请输入要更改姓名的人的目前姓名：" << endl;
         string name;

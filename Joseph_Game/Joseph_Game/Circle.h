@@ -36,6 +36,16 @@ public:
         cout << "请输入剩余的剩者人数K: " << endl;
         cin >> _survive_number;
         
+        if(_total_person<=0 ||
+           _start_position<=0 ||
+           _gap<=0 ||
+           _survive_number<=0 ||
+           _survive_number > _total_person ||
+           _start_position > _total_person){
+            cerr << "输入参数非法，请核对后重新运行程序！" << endl;
+            exit(0);
+        }
+        
         int n = _total_person;
         Node * last_node = nullptr;
         int count = 0;
@@ -93,7 +103,7 @@ public:
             while(current_node->isAlive() != true){
                 current_node = current_node->nextNode();
             }
-            current_node->killThisOne(_survive_number - count + 1);
+            current_node->killThisOne(_total_person - _survive_number - count + 1);
             while(current_node->isAlive() != true){
                 current_node = current_node->nextNode();
             }
@@ -109,10 +119,11 @@ public:
         while (n != 0) {
             n--;
             if(current_node->isAlive() == true){
-                cout << current_node->getNumber() << '\t';
+                cout << current_node->getNumber() << "\t\t";
             }
             current_node = current_node->nextNode();
         }
+        cout << endl;
     }
     
     

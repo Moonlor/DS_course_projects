@@ -6,16 +6,28 @@
          contextName = "MST::generateMST():MST.h">
          <PersistentStrings>
             <PersistentString
-               value = "cost[2]">
+               value = "cost[3]">
             </PersistentString>
             <PersistentString
-               value = "cost[3]">
+               value = "_path[2]">
             </PersistentString>
             <PersistentString
                value = "cost[0]">
             </PersistentString>
             <PersistentString
+               value = "_path[1]">
+            </PersistentString>
+            <PersistentString
                value = "cost[1]">
+            </PersistentString>
+            <PersistentString
+               value = "_path[0]">
+            </PersistentString>
+            <PersistentString
+               value = "cost[2]">
+            </PersistentString>
+            <PersistentString
+               value = "_path[3]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

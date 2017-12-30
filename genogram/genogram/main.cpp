@@ -12,14 +12,14 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
     cout << "**          家谱管理系统            \t**" << endl;
-    cout << "=====================================" << endl;
+    cout << "======================================" << endl;
     cout << "**        请选择要执行的操作:        \t**" << endl;
     cout << "**        A --- 完善家谱           \t**" << endl;
     cout << "**        B --- 添加家庭成员        \t**" << endl;
     cout << "**        C --- 解散局部家庭        \t**" << endl;
     cout << "**        D --- 更改家庭成员姓名     \t**" << endl;
     cout << "**        E --- 退出程序           \t**" << endl;
-    cout << "=====================================" << endl;
+    cout << "======================================" << endl;
     
     char instruct;
     Tree genogram;
@@ -30,14 +30,14 @@ int main(int argc, const char * argv[]) {
             case 'A':{
                 bool flag = genogram.newFamily();
                 if(flag == false){
-                    cerr << "内存分配错误" << endl;
+                    cerr << "操作执行失败" << endl;
                 }
                 break;
             }
             case 'B':{
                 bool flag = genogram.addNewMember();
                 if(flag == false){
-                    cerr << "内存分配错误" << endl;
+                    cerr << "操作执行失败" << endl;
                 }
                 break;
             }
@@ -54,7 +54,7 @@ int main(int argc, const char * argv[]) {
                 return 0;
             }
             default:
-                cout << "错误输入";
+                cout << "错误输入" << endl;
                 break;
         }
     }
