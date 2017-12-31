@@ -55,7 +55,7 @@ public:
     }
 };
 
-//======================================================================
+//=================================选择排序=====================================
 class SelectionSort {
 private:
     int *_result;
@@ -94,7 +94,7 @@ public:
     }
 };
 
-//======================================================================
+//===============================直接插入排序=======================================
 class DirectionInsertionSort {
 private:
     int *_result;
@@ -113,12 +113,14 @@ public:
             _result[i] = numbers[i];
         }
         unsigned int swap_times = 0;
-        clock_t start_time=clock();
+        clock_t start_time=clock();     //计时开始
         {
             for (int i = 1; i < count; i++) {
+                //当未排序元素的第一个元素小于已排序元素序列中的最后一个元素
                 if(_result[i - 1] > _result[i]){
-                    int temp = _result[i];
+                    int temp = _result[i];  //将未排序元素的第一个元素选为目标插入元素
                     int j = i - 1;
+                    //从已排序序列的最后一个元素开始向前搜索，将已排序元素一一向后移位，直至可以插入目标元素
                     for (; j >= 0 && _result[j] > temp; j--) {
                         _result[j + 1] = _result[j];
                         swap_times++;
@@ -126,30 +128,16 @@ public:
                     _result[j + 1] = temp;
                     swap_times++;
                 }
-//                int current = _result[i+1];
-//                int j = 0;
-//                for (; j < i + 1; j++) {
-//                    if(_result[j] > current){
-//                        break;
-//                    }
-//                }
-//                int temp = _result[i + 1];
-//                for (int k = i + 1; k > j; k--) {
-//                    _result[k] = _result[k - 1];
-//                    swap_times++;
-//                }
-//                _result[j] = temp;
-//                swap_times++;
             }
         }
-        clock_t end_time=clock();
+        clock_t end_time=clock();       //计时结束
         cout << "直接插入排序所用时间：\t\t" << static_cast<double>(end_time-start_time)/CLOCKS_PER_SEC*1000 << "ms" << endl;
         cout << "直接插入排序交换次数：\t\t" << swap_times / 2 << endl;
         return _result;
     }
 };
 
-//======================================================================
+//===================================希尔排序===================================
 class ShellSort {
 private:
     int *_result;
@@ -168,36 +156,42 @@ public:
             _result[i] = numbers[i];
         }
         unsigned int swap_times = 0;
-        clock_t start_time=clock();
+        clock_t start_time=clock();     //计时开始
         {
             int gap = 1;
+            //以gap = 1的最终值进行反推，求出gap增量序列的最大值
             while (gap <= count / 3) {
                 gap = gap * 3 + 1;
             }
             while (gap > 0) {
-                for (int i = gap; i < count; i += gap) {
+                for (int i = gap; i < count; i++) {
+                    //按gap将无序序列分为count/gap个组，对每个组进行插入排序
                     if(_result[i - gap] > _result[i]){
+                        //将此时的较小值保存
                         int temp = _result[i];
                         int j = i - gap;
+                        //从较大值开始，将其一个一个后移，直到找到合适的插入位置
                         for (; j >= 0 && _result[j] > temp; j -= gap) {
                             _result[j + gap] = _result[j];
                             swap_times++;
                         }
+                        //当前值比保存值还小时，则证明上一个位置是正确位置，将之前保存的值插入
                         _result[j + gap] = temp;
                         swap_times++;
                     }
                 }
+                //得到下一个gap序列值
                 gap = (gap - 1) / 3;
             }
         }
-        clock_t end_time=clock();
+        clock_t end_time=clock();       //计时结束
         cout << "希尔插入排序所用时间：\t\t" << static_cast<double>(end_time-start_time)/CLOCKS_PER_SEC*1000 << "ms" << endl;
         cout << "希尔插入排序交换次数：\t\t" << swap_times / 2 << endl;
         return _result;
     }
 };
 
-//======================================================================
+//===================================快速排序===================================
 class QuickSort {
 private:
     int *_result;
@@ -213,24 +207,32 @@ public:
     }
     
     void quickSort(int *target, int left_index, int right_index){
+        //当左右索引重合时，递归结束，序列已经有序
         if(left_index < right_index){
-            int key_value = target[left_index];
-            int low_index = left_index;
-            int high_index = right_index;
+            int key_value = target[left_index];     //主元
+            int low_index = left_index;             //左起点
+            int high_index = right_index;           //右起点
+            //此时主元素所在的位置为空位
             while (low_index < high_index) {
+                //从右边开始搜索，直到发现比主元小的元素
                 while (low_index < high_index && key_value < target[high_index]) {
                     high_index--;
                 }
+                //将找到的较小元素放入到空出来的位置，此时其原位置为空，可被放置一个较大元素
                 target[low_index] = target[high_index];
                 _swap_times++;
+                //从左边继续搜索，直到发现比主元大的元素
                 while (low_index < high_index && key_value > target[low_index]) {
                     low_index++;
                 }
+                //将找到的较大元素放入刚刚空出来的位置，此时其原位置为空，可被放置一个较小元素
                 target[high_index] = target[low_index];
                 _swap_times++;
             }
+            //将主元素填入交换完成后剩下的空位，此时主元素左边的所有元素均小于主元素，右边均大于主元素
             target[low_index] = key_value;
             _swap_times++;
+            //分别对左右序列进行递归
             quickSort(target, left_index, low_index - 1);
             quickSort(target, low_index + 1, right_index);
         }
@@ -241,11 +243,12 @@ public:
         for (int i = 0; i < count; i++) {
             _result[i] = numbers[i];
         }
-        clock_t start_time=clock();
+        clock_t start_time=clock();     //开始计时
         {
+            //调用递归函数进行快速排序，初始下待排序数组左下标为0，右下标为数组元素个数-1
             quickSort(_result, 0, count - 1);
         }
-        clock_t end_time=clock();
+        clock_t end_time=clock();       //计时结束
         cout << "快速排序所用时间：\t\t" << static_cast<double>(end_time-start_time)/CLOCKS_PER_SEC*1000 << "ms" << endl;
         cout << "快速排序交换次数：\t\t" << _swap_times << endl;
         return _result;
