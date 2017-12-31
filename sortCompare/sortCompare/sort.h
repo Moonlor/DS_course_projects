@@ -12,6 +12,7 @@
 #include <vector>
 #include <cmath>
 
+//===========================冒泡排序==================================
 class BubbleSort {
 private:
     int *_result;
@@ -30,20 +31,24 @@ public:
             _result[i] = numbers[i];
         }
         unsigned int swap_times = 0;
-        clock_t start_time=clock();
+        clock_t start_time=clock();         //计时开始
         {
             for (int i = 0; i < count - 1; i++) {
+                bool flag = true;
                 for (int j = 0; j < count - i - 1; j++) {
+                    //当发生后一个元素小于前一个元素的情况，将后一个元素前移，与前面一个元素交换
                     if (_result[j] > _result[j+1]) {
                         int temp = _result[j + 1];
                         _result[j + 1] = _result[j];
                         _result[j] = temp;
                         swap_times++;
+                        flag = false;
                     }
                 }
+                if (flag) break;
             }
         }
-        clock_t end_time=clock();
+        clock_t end_time=clock();   //计时结束
         cout << "冒泡排序所用时间：\t\t" << static_cast<double>(end_time-start_time)/CLOCKS_PER_SEC*1000 << "ms" << endl;
         cout << "冒泡排序交换次数：\t\t" << swap_times << endl;
         return _result;
