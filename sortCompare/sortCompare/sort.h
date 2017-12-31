@@ -330,7 +330,7 @@ public:
     }
 };
 
-//======================================================================
+//============================归并排序==========================================
 class MergeSort {
 private:
     int *_result;
@@ -350,26 +350,33 @@ public:
     
     void merge(int* input, int start, int mid, int end, int* output)
     {
-        int first_index = start;
-        int second_index = mid + 1;
-        int out_index = start;
+        int first_index = start;    //第一个待合并序列的起点
+        int second_index = mid + 1; //第二个待合并序列的起点
+        int out_index = start;      //合并结果的有序序列的起点
         while (first_index <= mid && second_index <= end) {
+            //如果第一个序列的值小于第二个序列的值
             if(input[first_index] < input[second_index]){
+                //将第一个序列的值插入有序序列
                 output[out_index++] = input[first_index++];
                 _swap_times++;
-            }else{
+            }else{//如果第一个序列的值大于第二个序列的值
                 output[out_index++] = input[second_index++];
+                //将第二个序列的值插入有序序列
                 _swap_times++;
             }
         }
+        //如果两个序列中已经有一个序列插入完成
+        //将第一个序列剩余的元素直接插入有序序列
         while (first_index <= mid) {
             output[out_index++] = input[first_index++];
             _swap_times++;
         }
+        //将第二个序列剩余的元素直接插入有序序列
         while (second_index <= end) {
             output[out_index++] = input[second_index++];
             _swap_times++;
         }
+        //将合并结果放回原数组中
         for (int i = start; i <= end; i++) {
             input[i] = output[i];
             _swap_times++;
@@ -379,8 +386,11 @@ public:
     void msort(int *numbers, int start, int end){
         if(start < end){
             int mid = (start + end) / 2;
+            //对左边序列进行排序
             msort(numbers, start, mid);
+            //对右边序列进行排序
             msort(numbers, mid + 1, end);
+            //将左右两边的有序序列合并为一个有序序列
             merge(numbers, start, mid, end, _buffer);
         }
     }
