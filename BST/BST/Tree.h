@@ -24,7 +24,6 @@ public:
         string in_string;
         stringstream stream;
         getline(cin, in_string);
-        cout << in_string;
         stream << in_string;
         int temp = 0;
         cout << endl;
@@ -64,15 +63,9 @@ public:
                     cerr << "内存分配错误" << endl;
                     return false;
                 }
-//                if (temp->value() < n) {
-//                    temp->addRight(new_node);
-//                }else{
-//                    temp->addLeft(new_node);
-//                }
                 temp->value() < n? temp->addRight(new_node) : temp->addLeft(new_node);
             }
         }
-        
         return true;
     }
     
