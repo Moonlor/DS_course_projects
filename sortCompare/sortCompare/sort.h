@@ -256,7 +256,7 @@ public:
 };
 
 
-//======================================================================
+//=====================================堆排序=================================
 class HeapSort {
 private:
     int *_result;
@@ -273,33 +273,43 @@ public:
     
     void adjustHeap(int *heap, int start, int end){
         int temp = heap[start];//start为堆顶部
-        for (int i = 2*start + 1; i <= end; i = i * 2 + 1) {//i为左节点, i+1为右节点
+        for (int i = 2*start + 1; i <= end; i = i * 2 + 1) {
+            //i为左节点, i+1为右节点
+            //将i调整为指向左、右节点中较大节点的索引
             if(heap[i] < heap[i + 1] && i + 1 <= end){
                 i++;
             }
+            //如果左右节点中的较大值都比父节点小，则无需调整
             if(heap[i] < temp){
                 break;
             }
+            //将左右节点中较大的值与父节点的值交换
+            //此次调整可能会造成较大值节点所在的子树不平衡，不再满足大顶堆的性质
+            //以较大值节点为下一次循环的父节点，继续自上而下调整
             heap[start] = heap[i];
             start = i;
             _swap_times++;
         }
+        //将调整结束后原顶部元素放置到适当的位置
         heap[start] = temp;
         _swap_times++;
     }
     
     void heapSort(int *heap, int count)
     {
+        //从第倒数第一个非叶子节点开始，自下而上调整堆使其成为大顶堆
         for (int i = (count - 1) / 2; i >= 0; i--) {
             adjustHeap(heap, i, count - 1);
         }
-        
+        //每次取出堆顶端的元素，即取出最大元素放入堆的末尾，之后调整时不再对末尾有序元素进行调整
+        //进行n-1次取值和调整后，存放堆的数组从0开始即位一个有序数组
         for (int i = count - 1; i >= 0; i--) {
+            //交换堆顶值与末尾值
             int temp = heap[i];
             heap[i] = heap[0];
             heap[0] = temp;
             _swap_times++;
-            
+            //交换完成后调整堆使其依然保持为大顶堆
             adjustHeap(heap, 0, i - 1);
         }
     }
