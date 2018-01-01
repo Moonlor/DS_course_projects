@@ -16,7 +16,7 @@ bool blank(Point p, Maze * myMaze){
     }
 }
 
-//
+
 void clear_way_options(void){
         while(!temp_options.empty()){
             temp_options.pop();

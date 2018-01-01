@@ -82,7 +82,8 @@ int main()
     
     ifstream in(route);
     if (! in.is_open()){
-        cerr << "打开文本文件失败"; exit (1);
+        cerr << "打开文本文件失败" << endl;
+        exit (0);
     }
     char buffer[256];
     while (!in.eof()) {
