@@ -70,7 +70,7 @@ InformationNode * List::findStudent(int ex_id)
 
 InformationNode * List::insert(int position)
 {
-    if(position > _totalNumber + 1){
+    if(position > _totalNumber + 1 || position <= 0){
         cerr << "插入位置不合法，请重新选择操作！" << endl;
         return nullptr;
     }
