@@ -34,6 +34,7 @@ int main(int argc, const char * argv[]) {
                 }
                 cout << "二叉查找树如下所示：" <<endl;
                 BST->show(BST->startPoint());
+                cout << endl;
                 break;
             }
             case 2:{
@@ -47,6 +48,7 @@ int main(int argc, const char * argv[]) {
                 BST->insert(temp);
                 cout << "二叉查找树如下所示：" <<endl;
                 BST->show(BST->startPoint());
+                cout << endl;
                 break;
             }
             case 3:{
