@@ -412,7 +412,7 @@ public:
     }
 };
 
-//======================================================================
+//==================================基数排序====================================
 class RadixSort {
 private:
     int *_result;
@@ -429,33 +429,42 @@ public:
         delete [] _result;
     }
     
-    int getBitNumber(int *bucket, int index, int bit){
-        int n = bucket[index] / (int)pow(10, bit) - (bucket[index] / (int)pow(10, bit + 1)) * 10;
-        return n;
-    }
+        //获取桶中某个数字第bit位的数字，如302第0位的数字为2
+        int getBitNumber(int *bucket, int index, int bit){
+            int n = bucket[index] / (int)pow(10, bit) - (bucket[index] / (int)pow(10, bit + 1)) * 10;
+            return n;
+        }
     
     int* radixSort(int *target, int bit, int total_number){
+        //用来标记第bit位数为0～9的数字在有序序列中的最后一个数字的索引
         int* count = new int[10]();
+        //用来存放所有数字
         int* bucket = new int[total_number]();
+        //用来计算bit位数字为0的数字的个数，当其等于数字总个数时序列有序
         int number_of_zeros = 0;
-        
+        //计算第bit位数为0～9的数字在有序序列中的个数
         for (int i = 0; i < total_number; i++) {
             count[getBitNumber(target, i, bit)]++;
         }
         
         number_of_zeros = count[0];
-        
+        //计算第bit位数为0～9的数字在有序序列bucket中的最后一个数字的索引（得到结果为索引值+1）
+        //例如假设末尾为0的数字有两个，则得到的count[0] = 2
+        //此时bucket中末尾为0的最后一个数字索引为2 - 1 = 1
         for (int i = 1; i < 10; i++) {
             count[i] += count[i - 1];
         }
-        
+        //从最后一个数字开始，按照bit位进行排序
         for (int i = total_number - 1; i >= 0; i--) {
+            //获取第i个数字的bit位数字
             int temp_bit = getBitNumber(target, i, bit);
+            //将第i个数字放入辅助数组bucket内，buket是按bit位元素排序后的序列
             bucket[count[temp_bit] - 1] = target[i];
             _swap_times++;
+            //bit位末尾数字为temp_bit的数字已经填入一个，待填入数字的数目-1
             count[temp_bit]--;
         }
-        
+        //如果bit为0的数字等于所有的数字个数，则bucket序列有序
         if(number_of_zeros == total_number){
             return bucket;
         }else{
@@ -468,14 +477,15 @@ public:
         for (int i = 0; i < count; i++) {
             _result[i] = numbers[i];
         }
-        clock_t start_time=clock();
+        clock_t start_time=clock(); //开始计时
         {
+            //从第0位数字开始进行基数排序
             int *temp = radixSort(_result, 0, count);
             for (int i = 0; i < count; i++) {
                 _result[i] = temp[i];
             }
         }
-        clock_t end_time=clock();
+        clock_t end_time=clock();   //计时结束
         cout << "基数排序所用时间：\t\t" << static_cast<double>(end_time-start_time)/CLOCKS_PER_SEC*1000 << "ms" << endl;
         cout << "基数排序交换次数：\t\t" << _swap_times << endl;
         return _result;
