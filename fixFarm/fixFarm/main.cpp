@@ -12,6 +12,7 @@
 using namespace std;
 
 int main(int argc, const char * argv[]) {
+    cout << "输入第一行给出正整数N（N<<10^4），表示要将木头锯成N块。第二行给出N个正整数，表示每块木头的长度。" << endl;
     //建立优先队列，存储容器为vector<int>，最小值优先
     priority_queue<int, vector<int>, greater<int> > wood;
     int n;

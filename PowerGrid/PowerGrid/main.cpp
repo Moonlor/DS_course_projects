@@ -48,7 +48,7 @@ int main(int argc, const char * argv[]) {
                 return 0;
             }
             default:
-                cout << "错误输入";
+                cout << "错误输入" << endl;
                 break;
         }
     }
