@@ -35,6 +35,8 @@ int main(int argc, const char * argv[]) {
         wood.push(first + second);
     }
     cout << count << endl;
+    
+    return 0;
 }
 
 
